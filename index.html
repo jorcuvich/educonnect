@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Módulos de Produtividade 4.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <header class="header-status">
+            <span class="logo">Edu+Connect</span>
+            <div class="user-status">
+                <span id="header-alias">...</span>
+                <span class="level-tag" id="header-level">LV 0</span>
+            </div>
+        </header>
+
+        <div class="main-content" id="app-main-content">
+            <div id="screen-auth" class="app-screen active">
+                <h2>BEM-VINDO(A) | ACESSO AO SISTEMA</h2>
+                <p class="subtitulo">Sua plataforma de produtividade e foco modular.</p>
+                
+                <form id="auth-form">
+                    <div class="card">
+                        <p style="font-weight: 600; color: var(--cor-primaria);">Autenticação Requerida</p>
+                        <div style="margin-bottom: 15px;">
+                            <label style="display:block; font-size: 12px; color: var(--cor-texto-suave);">Nome de Usuário/Alias:</label>
+                            <input type="text" id="auth-alias" required placeholder="Digite seu Alias" 
+                                style="width:100%; padding:8px; background-color:#2c2c40; border:1px solid #4a4a6b; color:white; border-radius:4px; margin-top:5px;"/>
+                        </div>
+                        <button class="btn btn-primario" type="submit">
+                            INICIAR MÓDULOS
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="screen-dashboard" class="app-screen">
+                <h2>DASHBOARD DE STATUS</h2>
+                <p class="subtitulo" id="dashboard-saudacao">Olá! Pronto(a) para começar.</p>
+                
+                <div class="card">
+                    <p style="font-weight: 600; color: var(--cor-primaria);">Barra de Progresso (Foco)</p>
+                    <div class="xp-display">
+                        <div class="xp-text">
+                            <span id="dashboard-xp-text">0 XP</span>
+                            <span id="dashboard-level-text">LV 1 / Próximo: 150 XP</span>
+                        </div>
+                        <div class="xp-bar-base">
+                            <div class="xp-bar-fill" id="dashboard-xp-bar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <p style="font-weight: 600; color: var(--cor-primaria);">LOG de Atividade Recente</p>
+                    <div id="dashboard-log">
+                        </div>
+                </div>
+                
+                <h2 style="margin-top: 30px;">PRÓXIMOS MÓDULOS</h2>
+                <button class="btn btn-secundario" onclick="Sistema.navigateTo('aulas')">
+                    <i class="fas fa-video"></i> AULAS EXPRESS (VÍDEOS E CONTEÚDO)
+                </button>
+                <button class="btn btn-secundario" onclick="Sistema.navigateTo('simulados')">
+                    <i class="fas fa-brain"></i> SIMULADOS DE AVALIAÇÃO
+                </button>
+                <button class="btn btn-secundario" onclick="Sistema.navigateTo('projetos')">
+                    <i class="fas fa-list-check"></i> PROJETOS FOCO (GERENCIADOR DE METAS)
+                </button>
+            </div>
+
+            <div id="screen-aulas" class="app-screen">
+                <h2>MÓDULO: AULAS EXPRESS</h2>
+                <p class="subtitulo">Conteúdo rápido e focado. Clique em assistir para ganhar XP.</p>
+                <div id="aulas-list">
+                    </div>
+            </div>
+
+            <div id="screen-simulados" class="app-screen">
+                <h2>MÓDULO: SIMULADOS</h2>
+                <p class="subtitulo">Teste seus conhecimentos. Acertos geram XP de alta performance.</p>
+                <div id="simulados-list">
+                    </div>
+            </div>
+
+            <div id="screen-projetos" class="app-screen">
+                <h2>MÓDULO: PROJETOS FOCO</h2>
+                <p class="subtitulo">Gerencie suas metas de estudo. Complete uma tarefa para ganhar bônus de foco.</p>
+                
+                <div class="card">
+                    <p style="font-weight: 600; color: var(--cor-primaria);">ADICIONAR NOVA TAREFA</p>
+                    <input type="text" id="nova-tarefa-input" placeholder="Ex: Revisar Funções de Segundo Grau" 
+                        style="width:100%; padding:8px; background-color:#2c2c40; border:1px solid #4a4a6b; color:white; border-radius:4px; margin-top:5px;"/>
+                    <button class="btn btn-secundario" onclick="Sistema.addTarefa()">
+                        <i class="fas fa-plus-circle"></i> ADICIONAR
+                    </button>
+                </div>
+
+                <div id="projetos-list">
+                    </div>
+            </div>
+
+            <div id="screen-perfil" class="app-screen">
+                <h2>MÓDULO: PERFIL (PLAYER STATUS)</h2>
+                
+                <div class="card" style="text-align: center;">
+                    <i class="fas fa-user-circle" style="font-size: 50px; color: var(--cor-destaque);"></i>
+                    <p style="font-size: 18px; font-weight: 800; margin: 5px 0 0;">Alias: <span id="perfil-alias"></span></p>
+                    <p style="font-size: 12px; color: var(--cor-texto-suave);">E-mail: <span id="perfil-email"></span></p>
+                </div>
+                
+                <div class="profile-info-grid">
+                    <div class="profile-item">Level Atual: <div class="profile-value" id="perfil-level"></div></div>
+                    <div class="profile-item">Total XP: <div class="profile-value" id="perfil-xp"></div></div>
+                    <div class="profile-item">Aulas Concluídas: <div class="profile-value" id="perfil-aulas"></div></div>
+                    <div class="profile-item">Simulados Feitos: <div class="profile-value" id="perfil-simulados"></div></div>
+                </div>
+
+                <h3 style="font-size: 16px; margin-top: 30px; color: var(--cor-primaria); border-bottom: 1px solid var(--cor-fundo-card);">TROFÉUS E CONQUISTAS</h3>
+                <div class="trophy-grid" id="perfil-trofeus">
+                    </div>
+
+                <button class="btn btn-secundario" onclick="Sistema.navigateTo('auth')">
+                    <i class="fas fa-sign-out-alt"></i> ENCERAR SESSÃO
+                </button>
+            </div>
+            
+        </div> <nav class="nav-bar" id="app-nav-bar" style="display:none;">
+            <div class="nav-item ativo" data-target="dashboard" onclick="Sistema.navigateTo('dashboard')">
+                <i class="fas fa-home"></i> Dashboard
+            </div>
+            <div class="nav-item" data-target="aulas" onclick="Sistema.navigateTo('aulas')">
+                <i class="fas fa-video"></i> Aulas
+            </div>
+            <div class="nav-item" data-target="simulados" onclick="Sistema.navigateTo('simulados')">
+                <i class="fas fa-brain"></i> Simulados
+            </div>
+            <div class="nav-item" data-target="projetos" onclick="Sistema.navigateTo('projetos')">
+                <i class="fas fa-list-check"></i> Projetos
+            </div>
+            <div class="nav-item" data-target="perfil" onclick="Sistema.navigateTo('perfil')">
+                <i class="fas fa-user-circle"></i> Perfil
+            </div>
+        </nav>
+
+    </div> <script src="script.js"></script>
+</body>
+</html>
